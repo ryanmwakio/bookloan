@@ -8,7 +8,7 @@ const props = defineProps(["info"]);
 
 <template>
   <div class="py-3 px-2">
-    <div class="grid grid-cols-2">
+    <div class="grid grid-cols-2 hover:shadow-lg transition-all duration-300">
       <div class="bg-white p-4">
         <div
           :style="{ backgroundImage: 'url(' + props.info.img + ')' }"

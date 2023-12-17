@@ -61,7 +61,7 @@ const toggleMenu = () => {
         >
           <li>
             <router-link
-              to="/jhhgj"
+              to="/"
               class="block py-2 px-3 bg-white rounded md:text-primary-black md:p-0"
               aria-current="page"
               >All Books</router-link
