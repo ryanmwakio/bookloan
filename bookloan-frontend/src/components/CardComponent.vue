@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps } from "vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
+import RangeComponent from "@/components/RangeComponent.vue";
 
 const props = defineProps(["info"]);
 </script>
@@ -24,13 +25,8 @@ const props = defineProps(["info"]);
 
         <div>
           <div class="flex flex-col my-4">
-            <h4 class="text-xs mb-2">Loan Days Remaining <span class="italic">4/5</span></h4>
-            <div class="w-full bg-gray-300 h-2 relative">
-              <div
-                class="absolute left-0 top-0 bottom-0 bg-primary-orange"
-                :style="{ width: '50%' }"
-              ></div>
-            </div>
+            <h4 class="text-xs mb-2">Loan Days Remaining <span class="italic">2/4</span></h4>
+            <range-component :percentage="50" />
           </div>
           <button-component text="Get Book" :showIcon="true" />
         </div>
