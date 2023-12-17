@@ -12,7 +12,7 @@ const props = defineProps(["info"]);
       <div class="bg-white p-4">
         <div
           :style="{ backgroundImage: 'url(' + props.info.img + ')' }"
-          class="w-full h-72 bg-center bg-cover bg-no-repeat"
+          class="w-full h-64 md:h-72 bg-center bg-cover bg-no-repeat"
         ></div>
       </div>
       <div class="flex flex-col justify-between bg-white p-4">
@@ -21,6 +21,9 @@ const props = defineProps(["info"]);
             ><span class="italic text-xs">By</span> {{ props.info.author }}</span
           >
           <h5 class="my-2 font-semibold text-sm w-full">{{ props.info.title }}</h5>
+          <p class="text-xs text-gray-400">
+            Added by: <span class="text-primary-orange font-semibold">{{ props.info.author }}</span>
+          </p>
         </div>
 
         <div>

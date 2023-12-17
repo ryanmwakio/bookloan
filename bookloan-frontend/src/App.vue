@@ -1,6 +1,7 @@
 <script setup>
 import { RouterView } from "vue-router";
 import "@/assets/css/main.css";
+import NavbarComponent from "@/components/NavbarComponent.vue";
 </script>
 
 <template>
@@ -11,6 +12,7 @@ import "@/assets/css/main.css";
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/books">Books</RouterLink>
         </nav> -->
+        <navbar-component />
       </div>
     </header>
     <RouterView />
