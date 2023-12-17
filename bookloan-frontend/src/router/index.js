@@ -6,7 +6,12 @@ const router = createRouter({
     {
       path: "/",
       name: "books",
-      component: () => import("@/views/BooksView.vue") // Lazy-loaded for performance
+      component: () => import("@/views/BooksView.vue") // Lazy-loaded components
+    },
+    {
+      path: "/:book",
+      name: "book",
+      component: () => import("@/views/BookView.vue")
     },
     {
       path: "/components",
