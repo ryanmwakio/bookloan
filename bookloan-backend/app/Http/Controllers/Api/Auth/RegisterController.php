@@ -22,6 +22,7 @@ class RegisterController extends Controller
                 "message" => "User created successfully",
                 'user' => $user,
                 'token' => $user->createToken('laravel_api_token')->plainTextToken,
+                'status' => 200,
             ]);
         } catch (\Exception $e) {
 
@@ -30,6 +31,7 @@ class RegisterController extends Controller
             return response()->json([
                 'successful' => false,
                 "message" => $e->getMessage(),
+                'status' => 500,
             ]);
         }
 
