@@ -113,7 +113,7 @@ const info = [
         >
           <div v-for="item in info" :key="item.id">
             <card-component :info="item" />
-            <div class="flex gap-2 mx-8">
+            <div class="flex gap-2 mx-2">
               <div class="flex flex-col gap-2">
                 <router-link
                   :to="`/admin/books/${item.id}/edit`"
