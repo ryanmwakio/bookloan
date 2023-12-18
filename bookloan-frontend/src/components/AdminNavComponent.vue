@@ -1,0 +1,28 @@
+<script setup>
+import { RouterLink } from "vue-router";
+</script>
+
+<template>
+  <nav class="p-4 my-4" style="width: 20%; height: 80vh !important; background: rgb(228, 228, 228)">
+    <ul>
+      <li>
+        <RouterLink
+          to="/admin/books"
+          class="my-6 text-xs bg-primary-black text-white flex justify-center items-center hover:shadow-lg transition-all duration-300"
+          style="padding: 1rem"
+          >Books
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink
+          to="/admin/users"
+          class="my-6 text-xs bg-primary-black text-white flex justify-center items-center hover:shadow-lg transition-all duration-300"
+          style="padding: 1rem"
+          >Users
+        </RouterLink>
+      </li>
+    </ul>
+  </nav>
+</template>
+
+<style lang="scss" scoped></style>

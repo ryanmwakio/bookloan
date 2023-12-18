@@ -22,7 +22,7 @@ const toggleMenu = () => {
         <router-link to="/login" class="flex items-center space-x-1">
           <div class="flex items-center gap-1">
             <img src="../assets/images/user.png" alt="" class="w-6 h-6 rounded-full" />
-            <span class="text-sm font-semibold">Login/Register</span>
+            <span class="text-sm font-semibold">Login</span>
           </div>
         </router-link>
         <button

@@ -12,9 +12,58 @@
       rel="stylesheet"
     />
     <title>Book Loan | Solutech</title>
+
+    <style>
+      .loader {
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #f1592b;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .loader-container {
+        transition: all 0.3s ease-in-out;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        background: #fff;
+        z-index: 9999;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
   </head>
   <body class="font-sans">
+    <div class="loader-container">
+      <div class="loader"></div>
+    </div>
     <div id="app"></div>
+    <script>
+      document.body.style.overflow = "hidden";
+
+      window.addEventListener("load", function () {
+        document.querySelector(".loader-container").classList.add("hidden");
+        document.body.style.overflow = "auto";
+      });
+    </script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

@@ -75,7 +75,7 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
             <p class="text-sm font-base text-gray-900">
               Already have an account?
               <router-link
-                to="/signin"
+                to="/login"
                 class="font-medium text-primary-600 hover:underline text-primary-500"
                 >Signin</router-link
               >
