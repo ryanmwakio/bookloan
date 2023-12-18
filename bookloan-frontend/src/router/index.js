@@ -29,6 +29,16 @@ const router = createRouter({
       component: () => import("@/views/AdminView.vue")
     },
     {
+      path: "/admin/books",
+      name: "admin-books",
+      component: () => import("@/views/AdminBooksView.vue")
+    },
+    {
+      path: "/admin/users",
+      name: "admin-users",
+      component: () => import("@/views/AdminUsersView.vue")
+    },
+    {
       path: "/:catchAll(.*)",
       component: () => import("@/views/NotFoundView.vue")
     }

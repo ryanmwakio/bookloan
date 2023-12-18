@@ -3,7 +3,7 @@ import { RouterLink } from "vue-router";
 </script>
 
 <template>
-  <nav class="p-4 my-4" style="width: 20%; height: 80vh !important; background: rgb(228, 228, 228)">
+  <nav class="p-4 my-4" style="width: 20%; height: 100vh; background: rgb(235, 235, 235)">
     <ul>
       <li>
         <RouterLink
