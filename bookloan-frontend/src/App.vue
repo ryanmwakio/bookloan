@@ -8,10 +8,6 @@ import NavbarComponent from "@/components/NavbarComponent.vue";
   <main class="container bg-white mx-auto">
     <header>
       <div class="wrapper">
-        <!-- <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/books">Books</RouterLink>
-        </nav> -->
         <navbar-component />
       </div>
     </header>

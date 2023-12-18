@@ -107,10 +107,10 @@ const info = [
     <AdminNavComponent />
     <div class="p-4">
       <div class="flex gap-2 justify-end mb-2">
-        <RouterLink to="/" class="bg-primary-green text-white py-2 px-6 text-xs"
+        <RouterLink to="/admin/books/loans" class="bg-primary-green text-white py-2 px-6 text-xs"
           >Book Loans</RouterLink
         >
-        <RouterLink to="/" class="bg-primary-orange text-white py-2 px-6 text-xs"
+        <RouterLink to="/admin/books/create" class="bg-primary-orange text-white py-2 px-6 text-xs"
           >Add Book</RouterLink
         >
       </div>
