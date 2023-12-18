@@ -119,7 +119,9 @@ const info = [
           <div v-for="item in info" :key="item.id">
             <card-component :info="item" />
             <div class="flex gap-2 mx-8">
-              <router-link to="/" class="bg-primary-orange text-white py-2 px-6 text-xs"
+              <router-link
+                :to="`/admin/books/${item.id}/edit`"
+                class="bg-primary-orange text-white py-2 px-6 text-xs"
                 >Edit</router-link
               >
               <button class="bg-red-500 text-white py-2 px-6 text-xs">Delete</button>

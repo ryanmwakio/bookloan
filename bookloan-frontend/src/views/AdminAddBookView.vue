@@ -55,7 +55,7 @@ const bookSubcategories = [
       <h3 class="font-semibold text-base text-center">Add a Book</h3>
 
       <div class="p-4 flex w-full">
-        <form>
+        <form enctype="multipart/form-data">
           <div class="my-4">
             <label for="name" class="block text-xs mb-1">Name</label>
             <input
