@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Scopes\LatestScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BookLoan extends Model
 {
@@ -19,5 +20,12 @@ class BookLoan extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+      public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new LatestScope);
     }
 }

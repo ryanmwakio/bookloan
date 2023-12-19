@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Scopes\LatestScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -51,5 +52,12 @@ class User extends Authenticatable
     public function bookLoans()
     {
         return $this->hasMany(BookLoan::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new LatestScope);
     }
 }
