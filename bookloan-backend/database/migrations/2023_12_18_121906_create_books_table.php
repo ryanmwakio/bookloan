@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('pages');
             $table->text('image');
-            $table->foreignId('added_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('added_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('book_loans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->date('loan_date');
+            $table->date('due_date');
+            $table->date('return_date')->nullable();
+            $table->boolean('extended')->default(false);
+            $table->date('extension_date')->nullable();
+            $table->integer('penalty_amount')->default(0);
+            $table->string('penalty_status')->default('unpaid');
+            $table->string('status')->default('pending');
             $table->timestamps();
+
         });
     }
 
