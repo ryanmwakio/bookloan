@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -19,8 +20,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
-        return response()->json($books);
+        $perPage = request()->get('per_page', 10);
+        $page = request()->get('page', 1);
+        return BookResource::collection(Book::paginate($perPage, ['*'], 'page', $page));
     }
 
     /**
