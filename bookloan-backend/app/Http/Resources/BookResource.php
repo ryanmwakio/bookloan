@@ -24,7 +24,7 @@ class BookResource extends JsonResource
             'description' => $this->description,
             'pages' => $this->pages,
             'image' => $this->image,
-            'added_by' => UserResource::make($this->whenLoaded('user')),
+            'added_by' => UserResource::make($this->user),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

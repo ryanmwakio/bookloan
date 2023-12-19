@@ -19,7 +19,7 @@ class BookFactory extends Factory
     {
         $randomUserId = User::pluck('id')->random();
         return [
-            "name" => fake()->title(),
+            "name" => fake()->sentence(),
             "publisher" => fake()->company(),
             "isbn" => fake()->isbn13(),
             "category" => fake()->word(),
