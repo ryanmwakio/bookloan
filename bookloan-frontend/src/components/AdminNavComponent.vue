@@ -21,6 +21,14 @@ import { RouterLink } from "vue-router";
           >Users
         </RouterLink>
       </li>
+      <li>
+        <RouterLink
+          to="/register"
+          class="my-6 text-xs bg-primary-black text-white flex justify-center items-center hover:shadow-lg transition-all duration-300"
+          style="padding: 1rem"
+          >Register User
+        </RouterLink>
+      </li>
     </ul>
   </nav>
 </template>

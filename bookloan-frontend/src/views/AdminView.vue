@@ -1,6 +1,15 @@
 <script setup>
-
+import { onMounted, ref } from "vue";
 import AdminNavComponent from "@/components/AdminNavComponent.vue";
+import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
+
+const user = ref({});
+
+onMounted(async () => {
+  user.value = await authStore.getUser();
+});
 </script>
 
 <template>

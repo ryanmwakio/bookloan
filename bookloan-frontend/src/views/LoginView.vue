@@ -1,6 +1,15 @@
 <script setup>
 import { RouterLink } from "vue-router";
 import ButtonComponent from "@/components/ButtonComponent.vue";
+import { ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
+
+const form = ref({
+  email: "",
+  password: ""
+});
 </script>
 
 <template>
@@ -16,13 +25,18 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
           >
             Sign in to your account
           </h1>
-          <form class="space-y-4 md:space-y-6" action="#">
+          <form
+            class="space-y-4 md:space-y-6"
+            action="#"
+            @submit.prevent="authStore.handleLogin(form)"
+          >
             <div>
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900"
                 >Your email</label
               >
               <input
                 type="email"
+                v-model="form.email"
                 name="email"
                 id="email"
                 class="text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white focus:outline-none border border-primary-black"
@@ -37,6 +51,7 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
               <input
                 type="password"
                 name="password"
+                v-model="form.password"
                 id="password"
                 placeholder="••••••••"
                 class="bg-white text-gray-900 sm:text-sm focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 focus:outline-none border border-primary-black"
@@ -60,7 +75,7 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
               </div>
             </div>
 
-            <button-component text="Sign in" />
+            <button-component type="submit" :text="authStore.loading ? 'Loading...' : 'Sign in'" />
 
             <p class="text-sm font-base text-gray-900">
               Don’t have an account yet?

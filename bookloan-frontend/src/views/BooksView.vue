@@ -1,6 +1,6 @@
 <script setup>
 import CardComponent from "@/components/CardComponent.vue";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import img1 from "@/assets/images/book1.png";
 import img2 from "@/assets/images/book2.png";
 import img3 from "@/assets/images/book3.png";
@@ -13,6 +13,9 @@ import img9 from "@/assets/images/book9.png";
 import img10 from "@/assets/images/book10.png";
 import img11 from "@/assets/images/book11.png";
 import img12 from "@/assets/images/book12.png";
+import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
 
 const info = [
   {
@@ -101,7 +104,11 @@ const info = [
   }
 ];
 
-onMounted(() => {});
+const user = ref({});
+
+onMounted(async () => {
+  user.value = await authStore.getUser();
+});
 </script>
 
 <template>

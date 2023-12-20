@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import axios from "axios";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,43 +22,78 @@ const router = createRouter({
     {
       path: "/register",
       name: "register",
-      component: () => import("@/views/RegisterView.vue")
+      component: () => import("@/views/RegisterView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/admin",
       name: "admin",
-      component: () => import("@/views/AdminView.vue")
+      component: () => import("@/views/AdminView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/admin/books",
       name: "admin-books",
-      component: () => import("@/views/AdminBooksView.vue")
+      component: () => import("@/views/AdminBooksView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/admin/books/create",
       name: "admin-books-create",
-      component: () => import("@/views/AdminAddBookView.vue")
+      component: () => import("@/views/AdminAddBookView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/admin/books/:book/edit",
       name: "admin-book-edit",
-      component: () => import("@/views/AdminUpdateBookView.vue")
+      component: () => import("@/views/AdminUpdateBookView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/admin/books/loans",
       name: "admin-books-loans",
-      component: () => import("@/views/AdminBookLoansView.vue")
+      component: () => import("@/views/AdminBookLoansView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/admin/users",
       name: "admin-users",
-      component: () => import("@/views/AdminUsersView.vue")
+      component: () => import("@/views/AdminUsersView.vue"),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/:catchAll(.*)",
       component: () => import("@/views/NotFoundView.vue")
     }
   ]
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = localStorage.getItem("token");
+    if (token) {
+      next();
+    } else {
+      next("/login");
+    }
+  } else {
+    // Non-protected route, allow access
+    next();
+  }
 });
 
 export default router;

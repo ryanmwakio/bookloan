@@ -1,12 +1,22 @@
 <script setup>
 import { RouterLink } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useAuthStore } from "@/stores/auth";
+
+const authStore = useAuthStore();
 
 const showMenu = ref(false);
+const showLogout = ref(false);
 
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
 };
+
+const user = ref({});
+
+onMounted(async () => {
+  user.value = await authStore.getUser();
+});
 </script>
 
 <template>
@@ -19,12 +29,35 @@ const toggleMenu = () => {
         >
       </router-link>
       <div to="/login" class="flex gap-4 md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <router-link to="/login" class="flex items-center space-x-1">
+        <div
+          class="relative"
+          v-if="authStore.user"
+          @click="showLogout = !showLogout"
+          @mouseover="showLogout = true"
+        >
+          {{ authStore.user.name }}
+          <div
+            class="absolute right-0 top-100 w-fit h-fit bg-white border flex items-center justify-center py-4 px-10 border-b-primary-orange"
+            v-if="showLogout"
+          >
+            <span class="cursor-pointer text-sm" @click="authStore.logout()">logout</span>
+          </div>
+        </div>
+        <router-link v-else to="/login" class="flex items-center space-x-1">
           <div class="flex items-center gap-1">
             <img src="../assets/images/user.png" alt="" class="w-6 h-6 rounded-full" />
             <span class="text-sm font-semibold">Login</span>
           </div>
         </router-link>
+
+        <div v-if="authStore.user">
+          <router-link
+            to="/admin"
+            class="text-sm font-semibold"
+            v-if="authStore.user.role === 'admin'"
+            >Admin</router-link
+          >
+        </div>
         <button
           data-collapse-toggle="navbar-sticky"
           type="button"
