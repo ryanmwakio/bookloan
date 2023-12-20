@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->hasMany(BookLoan::class);
     }
 
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
     public static function boot()
     {
         parent::boot();

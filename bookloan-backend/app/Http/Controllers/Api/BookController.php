@@ -15,7 +15,7 @@ class BookController extends Controller
     {
         $this->middleware('auth:sanctum')->except(['index', 'show']);
 
-        // $this->authorizeResource(Book::class, 'book');
+        $this->authorizeResource(Book::class, 'book', ['only' => ['store', 'update', 'destroy']]);
     }
     /**
      * Display a listing of the resource.
