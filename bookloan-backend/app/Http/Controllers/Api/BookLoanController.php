@@ -8,6 +8,7 @@ use App\Http\Requests\StoreBookLoanRequest;
 use App\Http\Resources\BookLoanResource;
 use App\Models\Book;
 use App\Models\BookLoan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -18,6 +19,20 @@ class BookLoanController extends Controller
         $this->middleware('auth:sanctum')->except(['index', 'show']);
 
         $this->authorizeResource(BookLoan::class, 'book', ['only' => ['update', 'destroy', 'show']]);
+    }
+
+    public function approve(BookLoan $bookloan)
+    {
+        $this->authorize('admin', User::class);
+
+        $bookloan->update(['status' => LoanStatus::APPROVED]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book loan approved successfully',
+            'status' => 200,
+            'data' => BookLoanResource::make($bookloan),
+        ], 200);
     }
 
     /**
