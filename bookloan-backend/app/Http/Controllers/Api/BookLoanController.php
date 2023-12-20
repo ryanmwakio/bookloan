@@ -40,7 +40,17 @@ class BookLoanController extends Controller
     {}
 
     public function return (BookLoan $bookloan)
-    {}
+    {
+        $this->authorize('return-book', $bookloan);
+        $bookloan->update(['status' => LoanStatus::RETURNED, 'return_date' => now()]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book loan returned successfully',
+            'status' => 200,
+            'data' => BookLoanResource::make($bookloan),
+        ]);
+    }
 
     public function extend(BookLoan $bookloan, Request $request)
     {
