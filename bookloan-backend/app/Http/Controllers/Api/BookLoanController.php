@@ -9,6 +9,7 @@ use App\Http\Resources\BookLoanResource;
 use App\Models\Book;
 use App\Models\BookLoan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -30,6 +31,27 @@ class BookLoanController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Book loan approved successfully',
+            'status' => 200,
+            'data' => BookLoanResource::make($bookloan),
+        ], 200);
+    }
+
+    public function reject(BookLoan $bookloan)
+    {}
+
+    public function return (BookLoan $bookloan)
+    {}
+
+    public function extend(BookLoan $bookloan, Request $request)
+    {
+        $dueDate = Carbon::parse($bookloan->due_date);
+        $daysToAdd = $request->days;
+        $newDueDate = $dueDate->addDays($daysToAdd);
+        $bookloan->update(['due_date' => $newDueDate]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book loan extended successfully',
             'status' => 200,
             'data' => BookLoanResource::make($bookloan),
         ], 200);
