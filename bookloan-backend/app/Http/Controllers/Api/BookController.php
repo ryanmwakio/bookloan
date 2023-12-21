@@ -8,15 +8,14 @@ use App\Http\Resources\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->except(['index', 'show']);
-
-        $this->authorizeResource(Book::class, 'book', ['only' => ['store', 'update', 'destroy']]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:sanctum')->except(['index', 'show']);
+    // }
     /**
      * Display a listing of the resource.
      */
@@ -41,7 +40,27 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         try {
-            $book = $request->user()->books()->create($request->validated());
+
+            $image_path = "";
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+
+                $imagePath = $file->store('books', 'public');
+
+                //Storage::disk('public')->url($imagePath); // full url with domain
+                $image_path = $imagePath;
+            }
+
+            $book = $request->user()->books()->create([
+                'name' => $request->name,
+                'publisher' => $request->publisher,
+                'isbn' => $request->isbn,
+                'category' => $request->category,
+                'sub_category' => $request->sub_category,
+                'description' => $request->description,
+                'pages' => $request->pages,
+                'image' => $image_path,
+            ]);
             return response()->json([
                 'success' => true,
                 'message' => 'Book created successfully',

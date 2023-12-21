@@ -29,7 +29,6 @@ class StoreBookRequest extends FormRequest
             'sub_category' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'pages' => 'required|integer',
-            'image' => 'required|string|max:255',
 
         ];
     }

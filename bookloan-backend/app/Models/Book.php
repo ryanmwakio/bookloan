@@ -22,6 +22,11 @@ class Book extends Model
         return $this->hasOne(BookLoan::class);
     }
 
+    public function getHelloAttribute()
+    {
+        return 'hello';
+    }
+
     public static function boot()
     {
         parent::boot();

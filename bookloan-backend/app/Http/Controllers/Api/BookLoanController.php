@@ -6,6 +6,7 @@ use App\Enums\LoanStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookLoanRequest;
 use App\Http\Resources\BookLoanResource;
+use App\Http\Resources\BookResource;
 use App\Models\Book;
 use App\Models\BookLoan;
 use App\Models\User;
@@ -36,8 +37,33 @@ class BookLoanController extends Controller
         ], 200);
     }
 
+    public function unapproved()
+    {
+        $books = Book::whereHas('bookLoan', function ($query) {
+            $query->where('status', '!=', LoanStatus::RETURNED);
+        })->get();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Unapproved books retrieved successfully',
+            'status' => 200,
+            'data' => BookResource::collection($books),
+        ], 200);
+    }
+
     public function reject(BookLoan $bookloan)
-    {}
+    {
+        $this->authorize('admin', User::class);
+
+        $bookloan->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book loan rejected successfully',
+            'status' => 200,
+            'data' => BookLoanResource::make($bookloan),
+        ]);
+    }
 
     public function return (BookLoan $bookloan)
     {
@@ -65,6 +91,22 @@ class BookLoanController extends Controller
             'status' => 200,
             'data' => BookLoanResource::make($bookloan),
         ], 200);
+    }
+
+    public function terminate(BookLoan $bookloan)
+    {
+
+        $this->authorize('admin', User::class);
+
+        $bookloan->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book loan terminated successfully',
+            'status' => 200,
+            'data' => BookLoanResource::make($bookloan),
+        ]);
+
     }
 
     /**

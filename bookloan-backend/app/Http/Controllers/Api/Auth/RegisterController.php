@@ -26,7 +26,7 @@ class RegisterController extends Controller
                 'user' => $user,
                 'token' => $user->createToken('laravel_api_token')->plainTextToken,
                 'status' => 200,
-            ]);
+            ], 200);
         } catch (\Exception $e) {
 
             Log::error($e->getMessage());

@@ -15,7 +15,7 @@ class BookPolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class BookPolicy
      */
     public function view(User $user, Book $book): bool
     {
-        //
+        return true;
     }
 
     /**
