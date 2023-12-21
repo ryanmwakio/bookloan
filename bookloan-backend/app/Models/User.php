@@ -59,6 +59,18 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
+    public function makeAdmin()
+    {
+        $this->role = 'admin';
+        $this->save();
+    }
+
+    public function removeAdmin()
+    {
+        $this->role = 'user';
+        $this->save();
+    }
+
     public static function boot()
     {
         parent::boot();

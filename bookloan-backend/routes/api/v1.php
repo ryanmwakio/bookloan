@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BookController;
 use App\Http\Controllers\Api\BookLoanController;
+use App\Http\Controllers\Api\UserController;
 
 Route::prefix('v1')->group(function () {
     Route::apiResource('/books', BookController::class);
@@ -14,5 +15,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/bookloans/{bookloan}/terminate', [BookLoanController::class, 'terminate']);
     Route::post('/bookloans/{bookloan}/extend/{days}', [BookLoanController::class, 'extend']);
 
-    //Route::get('/users', )
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users/{user}/makeadmin', [UserController::class, 'makeUserAdmin']);
+    Route::post('/users/{user}/removeadmin', [UserController::class, 'removeUserAdmin']);
 });
