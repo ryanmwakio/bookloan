@@ -1,6 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 import axios from "axios";
 
+const getUser = async (token) => {
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
+  const response = await axios.get(`/user`, config);
+  return response.data;
+};
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -32,7 +40,8 @@ const router = createRouter({
       name: "admin",
       component: () => import("@/views/AdminView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresAdmin: true
       }
     },
     {
@@ -82,10 +91,14 @@ const router = createRouter({
   ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     const token = localStorage.getItem("token");
     if (token) {
+      const user = await getUser(token);
+      if (user.role !== "admin") {
+        next("/");
+      }
       next();
     } else {
       next("/login");

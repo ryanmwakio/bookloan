@@ -85,7 +85,6 @@ export const useAuthStore = defineStore("auth", {
       };
 
       await axios.post("/logout", {}, { headers: headers });
-      console.log(token);
       localStorage.removeItem("token");
       this.authUser = null;
       this.router.push("/login");
