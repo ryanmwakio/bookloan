@@ -68,8 +68,7 @@ export const useAuthStore = defineStore("auth", {
           }
         );
 
-        console.log(response);
-        this.router.push("/admin");
+        this.router.push("/admin/users");
       } catch (error) {
         this.router.push("/admin");
       } finally {
@@ -89,7 +88,7 @@ export const useAuthStore = defineStore("auth", {
       this.authUser = null;
       this.router.push("/login");
 
-      window.location.reload();
+      // window.location.reload();
     }
   }
 });

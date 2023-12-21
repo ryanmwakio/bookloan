@@ -49,7 +49,8 @@ const router = createRouter({
       name: "admin-books",
       component: () => import("@/views/AdminBooksView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresAdmin: true
       }
     },
     {
@@ -57,7 +58,8 @@ const router = createRouter({
       name: "admin-books-create",
       component: () => import("@/views/AdminAddBookView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresAdmin: true
       }
     },
     {
@@ -65,7 +67,8 @@ const router = createRouter({
       name: "admin-book-edit",
       component: () => import("@/views/AdminUpdateBookView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresAdmin: true
       }
     },
     {
@@ -73,7 +76,8 @@ const router = createRouter({
       name: "admin-books-loans",
       component: () => import("@/views/AdminBookLoansView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresAdmin: true
       }
     },
     {
@@ -81,7 +85,8 @@ const router = createRouter({
       name: "admin-users",
       component: () => import("@/views/AdminUsersView.vue"),
       meta: {
-        requiresAuth: true
+        requiresAuth: true,
+        requiresAdmin: true
       }
     },
     {
