@@ -1,6 +1,7 @@
 <script setup>
 import AdminNavComponent from "@/components/AdminNavComponent.vue";
 import CardComponent from "@/components/CardComponent.vue";
+import { onMounted, ref } from "vue";
 import img1 from "@/assets/images/book1.png";
 import img2 from "@/assets/images/book2.png";
 import img3 from "@/assets/images/book3.png";
@@ -13,6 +14,11 @@ import img9 from "@/assets/images/book9.png";
 import img10 from "@/assets/images/book10.png";
 import img11 from "@/assets/images/book11.png";
 import img12 from "@/assets/images/book12.png";
+
+import { useBookStore } from "@/stores/book";
+
+const bookStore = useBookStore();
+const books = ref([]);
 
 const info = [
   {
@@ -100,6 +106,11 @@ const info = [
     is_available: true
   }
 ];
+
+onMounted(async () => {
+  await bookStore.getAllBooks();
+  books.value = await bookStore.getBooks;
+});
 </script>
 
 <template>
@@ -116,7 +127,7 @@ const info = [
       </div>
       <div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-1 bg-gray-100 mx-auto w-full container">
-          <div v-for="item in info" :key="item.id">
+          <div v-for="item in books" :key="item.id">
             <card-component :info="item" />
             <div class="flex gap-2 mx-8">
               <router-link

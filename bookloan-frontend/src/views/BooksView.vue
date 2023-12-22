@@ -14,8 +14,12 @@ import img10 from "@/assets/images/book10.png";
 import img11 from "@/assets/images/book11.png";
 import img12 from "@/assets/images/book12.png";
 import { useAuthStore } from "@/stores/auth";
+import { useBookStore } from "@/stores/book";
 
 const authStore = useAuthStore();
+
+const bookStore = useBookStore();
+const books = ref([]);
 
 const info = [
   {
@@ -108,13 +112,15 @@ const user = ref({});
 
 onMounted(async () => {
   user.value = await authStore.getUser();
+  await bookStore.getAllBooks();
+  books.value = await bookStore.getBooks;
 });
 </script>
 
 <template>
   <div class="container my-3 py-2 px-3 text-xl font-semibold">All Books</div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-1 bg-red-200 mx-auto w-full container p-2 md:p-4">
-    <div v-for="item in info" :key="item.id">
+    <div v-for="item in books" :key="item.id">
       <card-component :info="item" />
     </div>
   </div>

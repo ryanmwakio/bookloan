@@ -7,10 +7,26 @@ import { RouterLink } from "vue-router";
     <ul>
       <li>
         <RouterLink
+          to="/admin"
+          class="my-6 text-xs bg-primary-black text-white flex justify-center items-center hover:shadow-lg transition-all duration-300"
+          style="padding: 1rem"
+          >Admin
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink
           to="/admin/books"
           class="my-6 text-xs bg-primary-black text-white flex justify-center items-center hover:shadow-lg transition-all duration-300"
           style="padding: 1rem"
           >Books
+        </RouterLink>
+      </li>
+      <li>
+        <RouterLink
+          to="/admin/books/loans"
+          class="my-6 text-xs bg-primary-black text-white flex justify-center items-center hover:shadow-lg transition-all duration-300"
+          style="padding: 1rem"
+          >Book Loans
         </RouterLink>
       </li>
       <li>

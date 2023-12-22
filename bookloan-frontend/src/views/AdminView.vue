@@ -15,7 +15,7 @@ onMounted(async () => {
 <template>
   <main class="flex gap-4">
     <AdminNavComponent />
-    <div class="p-4 my-4">content</div>
+    <div class="p-4 my-4">ADMIN VIEW: HELLO SOLUTECH 🖐️😉</div>
   </main>
 </template>
 

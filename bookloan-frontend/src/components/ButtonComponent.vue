@@ -17,7 +17,7 @@ const props = defineProps({
 
 <template>
   <button
-    class="bg-primary-black border border-primary-black text-white text-xs py-2 px-6 cursor-pointer w-fit hover:border hover:border-primary-black hover:bg-white hover:text-primary-black transition-all duration-300 hover:shadow-lg flex items-center gap-3 relative overflow-hidden"
+    class="bg-primary-black border border-primary-black text-white text-xs py-2 px-6 cursor-pointer w-fit hover:border hover:border-primary-black hover:bg-white hover:text-primary-black transition-all duration-300 hover:shadow-lg flex items-center gap-3 relative overflow-hidden capitalize"
   >
     <span class="z-10">{{ props.text }}</span>
     <span

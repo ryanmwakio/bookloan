@@ -1,6 +1,32 @@
 <script setup>
 import AdminNavComponent from "@/components/AdminNavComponent.vue";
 import { RouterLink } from "vue-router";
+import { useUserStore } from "@/stores/user";
+import { onMounted, ref } from "vue";
+
+const userStore = useUserStore();
+const users = ref([]);
+
+const makeUserAdmin = (id) => {
+  userStore.makeUserAdmin(id);
+  users.value = userStore.getUsers;
+};
+
+const removeUserAdmin = (id) => {
+  userStore.removeUserAdmin(id);
+  users.value = userStore.getUsers;
+};
+
+const deleteUser = (id) => {
+  if (!confirm("Are you sure you want to delete this user?")) return;
+  userStore.deleteUser(id);
+  users.value = userStore.getUsers;
+};
+
+onMounted(async () => {
+  await userStore.fetchUsers();
+  users.value = userStore.getUsers;
+});
 </script>
 
 <template>
@@ -24,46 +50,41 @@ import { RouterLink } from "vue-router";
           </tr>
         </thead>
         <tbody>
-          <tr class="border-b py-2">
-            <td class="p-2 border">John Doe</td>
-            <td class="p-2 border">XZkKzsdsdsdsdsds@example.com</td>
+          <tr class="border-b py-2" v-for="user in users" :key="user.id">
+            <td class="p-2 border">{{ user.name }}</td>
+            <td class="p-2 border">{{ user.email }}</td>
             <td class="p-2 border">
-              <p>User</p>
+              <p>{{ user.role }}</p>
               <div class="flex gap-2 items-center">
-                <label for="">change role</label>
                 <select
+                  v-if="user.role !== 'admin'"
                   name=""
                   id=""
-                  class="border border-primary-black focus:outline-none text-xs cursor-pointer"
+                  class="border border-primary-black focus:outline-none text-xs cursor-pointer my-2"
+                  @change="makeUserAdmin(user.id, $event)"
                 >
-                  <option value="">Admin</option>
-                  <option value="">User</option>
+                  <option value="user">change role</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <select
+                  v-else
+                  name=""
+                  id=""
+                  class="border border-primary-black focus:outline-none text-xs cursor-pointer my-2"
+                  @change="removeUserAdmin(user.id)"
+                >
+                  <option value="admin">change role</option>
+                  <option value="user">User</option>
                 </select>
               </div>
             </td>
             <td class="p-2 flex gap-2 border">
-              <button class="bg-red-500 text-white py-2 px-6 text-xs w-fit h-fit">Delete</button>
-            </td>
-          </tr>
-          <tr class="border-b py-2">
-            <td class="p-2 border">John Doe</td>
-            <td class="p-2 border">XZkK@example.com</td>
-            <td class="p-2 border">
-              <p>Admin</p>
-              <div class="flex gap-2 items-center">
-                <label for="">change role</label>
-                <select
-                  name=""
-                  id=""
-                  class="border border-primary-black focus:outline-none text-xs cursor-pointer"
-                >
-                  <option value="">Admin</option>
-                  <option value="">User</option>
-                </select>
-              </div>
-            </td>
-            <td class="p-2 flex gap-2 border">
-              <button class="bg-red-500 text-white py-2 px-6 text-xs w-fit h-fit">Delete</button>
+              <button
+                class="bg-red-500 text-white py-2 px-6 text-xs w-fit h-fit"
+                @click="deleteUser(user.id)"
+              >
+                Delete
+              </button>
             </td>
           </tr>
         </tbody>

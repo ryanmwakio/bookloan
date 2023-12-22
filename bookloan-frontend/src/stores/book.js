@@ -44,6 +44,18 @@ export const useBookStore = defineStore("book", {
       } finally {
         this.isloading = false;
       }
+    },
+    async getAllBooks() {
+      try {
+        this.isloading = true;
+        const response = await axios.get("/books");
+
+        this.books = response.data.data;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isloading = false;
+      }
     }
   }
 });
