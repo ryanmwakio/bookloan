@@ -4,7 +4,7 @@
 
 - [x] **Database Setup:**
 
-  - [x] Choose a database (preferably MySQL) and create the necessary tables based on the ER diagram.
+  - [x] Choose a database (MySQL).
   - [x] Normalize the database further to meet additional requirements.
 
 - [x] **API Implementation:**
@@ -53,10 +53,6 @@
 - [x] **Version Control:**
 
   - [x] Upload your code to the version control system of your choice (e.g., GitHub, GitLab).
-
-- [x] **Project Deadline:**
-
-  - [x] The deadline for this code challenge is 28th December 2023.
 
 - [x] **Additional Information:**
   - [x] Demonstrate skills in normalizing the database.
