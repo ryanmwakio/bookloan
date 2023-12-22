@@ -18,4 +18,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/users', [UserController::class, 'index']);
     Route::post('/users/{user}/makeadmin', [UserController::class, 'makeUserAdmin']);
     Route::post('/users/{user}/removeadmin', [UserController::class, 'removeUserAdmin']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
 });

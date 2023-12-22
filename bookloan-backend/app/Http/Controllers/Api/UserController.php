@@ -52,4 +52,16 @@ class UserController extends Controller
             'data' => new UserResource($user),
         ]);
     }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User deleted successfully',
+            'status' => 200,
+            'data' => null,
+        ]);
+    }
 }
