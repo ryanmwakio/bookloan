@@ -2,17 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::get('/{any}', function () {
+    $file = public_path('index.html');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    if (File::exists($file)) {
+        return response(file_get_contents($file));
+    } else {
+        abort(404);
+    }
+})->where('any', '.*');
