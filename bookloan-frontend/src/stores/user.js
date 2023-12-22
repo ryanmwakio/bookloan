@@ -69,7 +69,6 @@ export const useUserStore = defineStore("user", {
       });
 
       this.fetchUsers();
-      alert("user deleted");
 
       return;
     }

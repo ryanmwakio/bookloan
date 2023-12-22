@@ -16,7 +16,11 @@ import img11 from "@/assets/images/book11.png";
 import img12 from "@/assets/images/book12.png";
 
 import { useBookStore } from "@/stores/book";
+import axios from "axios";
+import LoadingComponent from "@/components/LoadingComponent.vue";
+import { useToast } from "vue-toast-notification";
 
+const $toast = useToast();
 const bookStore = useBookStore();
 const books = ref([]);
 
@@ -107,6 +111,29 @@ const info = [
   }
 ];
 
+const deleteBtnText = ref("Delete");
+
+const handleDelete = async (id) => {
+  try {
+    deleteBtnText.value = "Deleting...";
+    const token = localStorage.getItem("token");
+    const response = await axios.delete("/books/" + id, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (response.data.success) {
+      $toast.success(response.data.message);
+      books.value = books.value.filter((book) => book.id !== id);
+    }
+  } catch (error) {
+    console.log(error);
+  } finally {
+    deleteBtnText.value = "Delete";
+  }
+};
+
 onMounted(async () => {
   await bookStore.getAllBooks();
   books.value = await bookStore.getBooks;
@@ -116,7 +143,11 @@ onMounted(async () => {
 <template>
   <main class="flex gap-4">
     <AdminNavComponent />
-    <div class="p-4">
+
+    <div v-if="books.length === 0 || books === null" class="w-full">
+      <loading-component />
+    </div>
+    <div v-else class="p-4">
       <div class="flex gap-2 justify-end mb-2">
         <RouterLink to="/admin/books/loans" class="bg-primary-green text-white py-2 px-6 text-xs"
           >Book Loans</RouterLink
@@ -130,12 +161,17 @@ onMounted(async () => {
           <div v-for="item in books" :key="item.id">
             <card-component :info="item" />
             <div class="flex gap-2 mx-8">
-              <router-link
+              <!-- <router-link
                 :to="`/admin/books/${item.id}/edit`"
                 class="bg-primary-orange text-white py-2 px-6 text-xs"
                 >Edit</router-link
+              > -->
+              <button
+                class="bg-red-500 text-white py-2 px-6 text-xs"
+                @click="handleDelete(item.id)"
               >
-              <button class="bg-red-500 text-white py-2 px-6 text-xs">Delete</button>
+                {{ deleteBtnText }}
+              </button>
             </div>
           </div>
         </div>

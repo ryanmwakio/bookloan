@@ -29,7 +29,7 @@ export const useAuthStore = defineStore("auth", {
           }
         }
       } catch (error) {
-        console.log("error", error);
+        console.error("error", error);
       } finally {
         this.isLoading = false;
       }
@@ -40,15 +40,14 @@ export const useAuthStore = defineStore("auth", {
       if (!token) {
         return;
       }
-      const { data } = await axios.get("/user", {
+      const response = await axios.get("/user", {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      this.authUser = data;
+      this.authUser = response.data;
     },
     async handleRegister(data) {
-      console.log(data);
       try {
         this.isLoading = true;
 

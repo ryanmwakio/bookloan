@@ -4,8 +4,10 @@ import CardComponent from "@/components/CardComponent.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useBookStore } from "@/stores/book";
+import { useToast } from "vue-toast-notification";
 
 const bookStore = useBookStore();
+const $toast = useToast();
 
 const books = ref([]);
 const pendingApprovalBooks = ref([]);
@@ -62,10 +64,11 @@ const handleApprove = async (bookLoanId) => {
         (book) => book.loan.id !== bookLoanId
       );
 
-      alert(response.data.message);
+      $toast.success(response.data.message);
     }
   } catch (error) {
     console.log(error);
+    $toast.error(error.response.data.message);
   } finally {
     approveBtnText.value = "Approve Loan";
   }
@@ -85,7 +88,7 @@ const handleReject = async (bookLoanId) => {
       }
     );
     if (response.data.success) {
-      alert(response.data.message);
+      $toast.success(response.data.message);
       pendingApprovalBooks.value = pendingApprovalBooks.value.filter(
         (book) => book.loan.id !== bookLoanId
       );
@@ -111,7 +114,7 @@ const handleTerminate = async (bookLoanId) => {
       }
     );
     if (response.data.success) {
-      alert(response.data.message);
+      $toast.success(response.data.message);
       approvedBooks.value = approvedBooks.value.filter((book) => book.loan.id !== bookLoanId);
     }
   } catch (error) {

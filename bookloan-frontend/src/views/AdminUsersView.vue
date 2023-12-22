@@ -3,6 +3,9 @@ import AdminNavComponent from "@/components/AdminNavComponent.vue";
 import { RouterLink } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { onMounted, ref } from "vue";
+import { useToast } from "vue-toast-notification";
+
+const $toast = useToast();
 
 const userStore = useUserStore();
 const users = ref([]);
@@ -21,6 +24,7 @@ const deleteUser = (id) => {
   if (!confirm("Are you sure you want to delete this user?")) return;
   userStore.deleteUser(id);
   users.value = userStore.getUsers;
+  $toast.success("User deleted successfully");
 };
 
 onMounted(async () => {

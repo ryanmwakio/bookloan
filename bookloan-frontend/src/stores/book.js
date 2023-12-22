@@ -52,7 +52,7 @@ export const useBookStore = defineStore("book", {
 
         this.books = response.data.data;
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         this.isloading = false;
       }

@@ -4,8 +4,11 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
 import RangeComponent from "@/components/RangeComponent.vue";
 import axios from "axios";
 import { useAuthStore } from "@/stores/auth";
+import { useToast } from "vue-toast-notification";
 
 const authStore = useAuthStore();
+
+const $toast = useToast();
 
 const props = defineProps(["info"]);
 const btnText = ref("Get Book");
@@ -40,7 +43,7 @@ const handleLoanBook = async (bookId) => {
             btnText.value = "Get Book";
             props.info.loan = null;
             dueDate.value = "";
-            alert(response.data.message);
+            $toast.success("Book returned successfully");
           }
           return;
         }
@@ -48,18 +51,19 @@ const handleLoanBook = async (bookId) => {
     }
 
     if (props.info.loan && props.info.loan.status !== "returned") {
-      alert("Already loaned");
-      throw new Error("Already loaned");
+      $toast.info("Already loaned");
+      return;
     }
 
     if (!dueDate.value) {
-      alert("Please set due date");
-      throw new Error("Please set due date");
+      $toast.info("Please set due date");
+      return;
     }
     const token = localStorage.getItem("token");
 
     if (!token) {
-      throw new Error("No token found");
+      $toast.info("Please login first");
+      return;
     }
 
     btnText.value = "Loading...";
@@ -76,11 +80,13 @@ const handleLoanBook = async (bookId) => {
     );
 
     if (response.data.success) {
-      alert(response.data.message);
+      $toast.success("Book loaned successfully");
       btnText.value = "Pending";
+      return;
     }
   } catch (err) {
     console.log(err);
+    $toast.error("Something went wrong");
     btnText.value = "Get Book";
   }
 };
@@ -94,8 +100,8 @@ const handleExtendDays = async (days) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      alert("Please login first");
-      throw new Error("No token found");
+      $toast.info("Please login first");
+      return;
     }
 
     const response = await axios.post(
@@ -109,7 +115,7 @@ const handleExtendDays = async (days) => {
     );
 
     if (response.data.success) {
-      alert(response.data.message);
+      $toast.success(response.data.message);
     }
   } catch (err) {
     console.log(err);
