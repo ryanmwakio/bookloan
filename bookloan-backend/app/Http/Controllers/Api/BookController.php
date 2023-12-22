@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:sanctum')->except(['index', 'show']);
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index', 'show']);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -108,6 +108,13 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book deleted successfully',
+            'status' => 200,
+            'data' => null,
+        ]);
     }
 }
