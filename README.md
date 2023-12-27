@@ -4,7 +4,7 @@
 
 - [x] **Database Setup:**
 
-  - [x] Choose a database (preferably MySQL) and create the necessary tables based on the ER diagram.
+  - [x] Choose a database (MySQL).
   - [x] Normalize the database further to meet additional requirements.
 
 - [x] **API Implementation:**
@@ -54,10 +54,6 @@
 
   - [x] Upload your code to the version control system of your choice (e.g., GitHub, GitLab).
 
-- [x] **Project Deadline:**
-
-  - [x] The deadline for this code challenge is 28th December 2023.
-
 - [x] **Additional Information:**
   - [x] Demonstrate skills in normalizing the database.
   - [x] Showcase additional features beyond the basic requirements.
@@ -70,12 +66,18 @@
   - [x] Install dependencies: `composer install`.
   - [x] Set up the database: `php artisan migrate`.
   - [x] Run the server: `php artisan serve`.
+  - [x] seed database: `php artisan db:seed`
+  - [x] Link storage: `php artisan storage:link`
+  - [x] You can clear configurations and caches: `php artisan config:clear && php artisan cache:clear`
+  - [x] running the backend in e.g a debian server in detached mode: `nohup php artisan serve --host=0.0.0.0 --port=9008 > laravel.log 2>&1 &`
+  - [x] Run the cron/scheduler: `php artisan schedule:run >> /dev/null 2>&1`
 
 - [x] **Frontend (Vue 3 - BookLoan-Frontend):**
 
   - [x] Clone the repository.
   - [x] Install dependencies: `npm install`.
-  - [x] Run the development server: `npm run serve`.
+  - [x] Run the development server: `npm run serve`.(development)
+  - [x] Build the assets in production (minify and optimize): `npm run build` the load it on the server or run it as a seperate instance in the server.
 
 - [x] **Accessing the Application:**
 
@@ -96,3 +98,4 @@
   - [x] User Email: johndoe@gmail.com
   - [x] User Password: pass
   - You can login as admin and create a user and test with that user to.
+  -
